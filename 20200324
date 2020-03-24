@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+</head>
+<style>
+  .float {
+    float: left;
+  }
+  .container {  
+    margin:0 auto;
+    width:700px;
+    
+  }
+  .clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden
+  }
+  .clearfix {
+    *+height: 1%;
+  }
+</style>
+<script>
+  var style = `
+  #app,#app1,#app2{
+  height: 100px;
+  width: 33%;
+  border: 1px solid red;
+ 
+}
+.section {
+  height: 30px;
+  width: 30px;
+  border: 10px solid blue;
+  
+}
+ .red{color:red;}`
+
+  function createApp(id, childId) {
+    var format = document.createElement('style');
+    format.innerText = style;
+    document.body.appendChild(format);
+    var App = document.getElementById(id);
+    App.innerText = 123;
+    var section = document.createElement('div');
+    section.id = childId;
+    section.className = 'section';
+    App.appendChild(section);
+    document.getElementById(childId).innerHTML = '<p class=red>123</p>';
+  }
+</script>
+
+<body>
+  <div class="clearfix container ">
+    <div id="app" class="float">
+      <script>
+        createApp('app', 'a');
+      </script>
+    </div>
+    <div id="app1" class="float">
+      <script>
+        createApp('app1', 'b');
+      </script>
+    </div>
+    <div id="app2" class="float">
+      <script>
+        createApp('app2', 'c');
+      </script>
+    </div>
+  </div>
+</body>
+
+</html>
