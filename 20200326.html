@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+</head>
+<style>
+  #container{
+  position:relative;
+  margin:0 auto;
+  width:300px;
+  height:500px; 
+  background:#333;
+  border-radius:1% 
+}
+
+#ball{ 
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  background:red;
+  position:absolute;
+}
+
+#target{  
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  background:#fff;
+  position:absolute;
+</style>
+
+<body>
+  <div id="container" class="red">
+    <div id="ball" style="left:0px;top:0px;"></div>
+    <div id="target" style="left:50px;top:0px;background:white"></div>
+  </div>
+  
+</body>
+<script>
+      function getKey(e) {
+      return e.keyCode
+    }
+    function $(id) {
+      return document.getElementById(id)
+    }
+    function getLeft(id) {
+      return $(id).style.left
+    }
+    function getTop(id) {
+      return $(id).style.top
+    }
+    function moveBall() {
+      document.onkeydown = function(e) {
+        if (getKey(e) == 37 && parseInt(getLeft('ball')) > 0) {
+          ball.style.left = parseInt(ball.style.left) - 10 + 'px'
+        } else if (getKey(e) == 39 && parseInt(getLeft('ball')) < 250) {
+          ball.style.left = parseInt(ball.style.left) + 10 + 'px'
+        } else if (getKey(e) == 40 && parseInt(getTop('ball')) < 450) {
+          ball.style.top = parseInt(ball.style.top) + 10 + 'px'
+        } else if (getKey(e) == 38 && parseInt(getTop('ball')) > 0) {
+          ball.style.top = parseInt(ball.style.top) - 10 + 'px'
+        }
+        gapH()
+        gapV()
+        bom()
+      }
+    }
+
+    function setTargetPosition() {
+      target.style.left = Math.random() * 250 + 'px'
+      target.style.top = Math.random() * 450 + 'px'
+    }
+    setInterval(function() {
+      setTargetPosition()
+    }, 3000)
+
+    function gapH() {
+      return Math.abs(parseInt(getLeft('ball')) - parseInt(getLeft('target')))
+    }
+
+    function gapV() {
+      return Math.abs(parseInt(getTop('ball')) - parseInt(getTop('target')))
+    }
+
+    function bom() {
+      if (gapH() < 10 && gapV() < 10) {
+        target.style.background = 'yellow'
+        target.innerText = '击中了！'
+      }
+    }
+    moveBall()
+    bom()
+
+
+  </script>
+</html>
