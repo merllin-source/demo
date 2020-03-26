@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+</head>
+<body>  
+<div id="app1"></div>   
+</body>
+<script>
+  function CreateApp(appID){
+var appID = appID
+var containerID = 'container' + appID
+var ballID = 'ball' + appID
+var targetID = 'target' + appID
+var css = ` 
+#${containerID}{
+  position:relative;
+  margin:0 auto;
+  width:300px;
+  height:500px; 
+  background:#333;
+  border-radius:1% 
+}
+#${ballID}{ 
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  background:red;
+  position:absolute;
+}
+#${targetID}{  
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  background:#fff;
+  position:absolute;
+  font-size:12px;
+  text-align:center;
+  line-height:50px;
+}
+`
+var html = `
+ <div id=${containerID}>
+    <div id=${ballID} style="left:0px;top:0px;"></div>
+    <div id=${targetID} style="left:50px;top:0px;background:white"></div>
+  </div>
+`
+function getKey(e) {
+  return e.keyCode
+}
+function $(id) {
+  return document.getElementById(id)
+}
+function insertHtml() {
+  $(appID).innerHTML = html
+}
+function insertCSS(x) {
+  var style1 = document.createElement('style')
+  style1.innerText = x
+  document.body.appendChild(style1)
+}
+function getLeft(id) {
+  return $(id).style.left
+}
+function getTop(id) {
+  return $(id).style.top
+}
+function moveBall() {
+  document.onkeydown = function(e) {
+    if (getKey(e) == 37 && parseInt(getLeft(ballID)) > 0) {
+      $(ballID).style.left = parseInt($(ballID).style.left) - 10 + 'px'
+    } else if (getKey(e) == 39 && parseInt(getLeft(ballID)) < 250) {
+      $(ballID).style.left = parseInt($(ballID).style.left) + 10 + 'px'
+    } else if (getKey(e) == 40 && parseInt(getTop(ballID)) < 450) {
+      $(ballID).style.top = parseInt($(ballID).style.top) + 10 + 'px'
+    } else if (getKey(e) == 38 && parseInt(getTop(ballID)) > 0) {
+      $(ballID).style.top = parseInt($(ballID).style.top) - 10 + 'px'
+    }
+    gapH()
+    gapV()
+    bom()
+  }
+}
+function setTargetPosition() {
+  $(targetID).style.left = Math.random() * 250 + 'px'
+  $(targetID).style.top = Math.random() * 450 + 'px'
+}
+setInterval(function() {
+  setTargetPosition()
+}, 3000)
+function gapH() {
+  return Math.abs(parseInt(getLeft(ballID)) - parseInt(getLeft(targetID)))
+}
+function gapV() {
+  return Math.abs(parseInt(getTop(ballID)) - parseInt(getTop(targetID)))
+}
+function bom() {
+      if (gapH() < 10 && gapV() < 10) {
+        $(targetID).style.background = 'yellow'
+        $(targetID).innerText = '击中了！'
+      }
+      else{
+        $(targetID).style.background = 'white'
+        $(targetID).innerText = '逃跑了！'        
+      }
+    }
+insertHtml(html)
+insertCSS(css)
+moveBall()
+    bom()
+}
+
+CreateApp('app1')
+
+  </script>
+  
+</html>
