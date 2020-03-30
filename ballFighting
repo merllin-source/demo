@@ -1,0 +1,107 @@
+function App(appID) {
+  this.appID = appID
+  this.containerID = 'container' + appID
+  this.ballID = 'ball' + appID
+  this.targetID = 'target' + appID
+  this.css =` 
+#${this.containerID}{
+  position:relative;
+  margin:0 auto;
+  width:300px;
+  height:500px; 
+  background:#333;
+  border-radius:1% 
+}
+#${this.ballID}{ 
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  background:red;
+  position:absolute;
+}
+#${this.targetID}{  
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  background:#fff;
+  position:absolute;
+  font-size:12px;
+  text-align:center;
+  line-height:50px;
+}
+`
+  this.html = `
+ <div id=${this.containerID}>
+    <div id=${this.ballID} style="left:0px;top:0px;"></div>
+    <div id=${this.targetID} style="left:50px;top:0px;background:white"></div>
+  </div>
+`
+  that = this
+}
+App.prototype = {
+  getKey: function getKey(e) {
+    return e.keyCode
+  },
+  $:function(id) {
+    return document.getElementById(id)
+  },
+  insertHtml: function(html1) {
+    that.$(that.appID).innerHTML = html1
+  },
+  insertCSS: function(css1) {
+    var style1 = document.createElement('style')
+    style1.innerText = css1
+    document.body.appendChild(style1)
+  },
+  getLeft: function(id) {
+    return that.$(id).style.left
+  },
+  getTop: function(id) {
+    return that.$(id).style.top
+  },
+  moveBall: function() {
+    document.onkeydown = function(e) {
+      if (that.getKey(e) == 37 && parseInt(that.getLeft(that.ballID)) > 0) {
+        that.$(that.ballID).style.left = parseInt(that.$(that.ballID).style.left) - 10 + 'px'
+      } else if (that.getKey(e) == 39 && parseInt(that.getLeft(that.ballID)) < 250) {
+        that.$(that.ballID).style.left = parseInt(that.$(that.ballID).style.left) + 10 + 'px'
+      } else if (that.getKey(e) == 40 && parseInt(that.getTop(that.ballID)) < 450) {
+        that.$(that.ballID).style.top = parseInt(that.$(that.ballID).style.top) + 10 + 'px'
+      } else if (that.getKey(e) == 38 && parseInt(that.getTop(that.ballID)) > 0) {
+        that.$(that.ballID).style.top = parseInt(that.$(that.ballID).style.top) - 10 + 'px'
+      }
+      that.gapH()
+      that.gapV()
+      that.bom()
+    }
+  },
+  setTargetPosition: function(){
+    that.$(that.targetID).style.left = Math.random() * 250 + 'px';
+    that.$(that.targetID).style.top = Math.random() * 450 + 'px'
+  },
+  gapH: function() {
+    return Math.abs(parseInt(that.getLeft(that.ballID)) - parseInt(that.getLeft(that.targetID)))
+  },
+  gapV: function() {
+    return Math.abs(parseInt(that.getTop(that.ballID)) - parseInt(that.getTop(that.targetID)))
+  },
+  bom: function() {
+    if (that.gapH() < 10 && that.gapV() < 10) {
+      that.$(that.targetID).style.background = 'yellow';
+      that.$(that.targetID).innerText = '击中了！'
+    } else {
+      that.$(that.targetID).style.background = 'white';
+      that.$(that.targetID).innerText = '逃跑了！'
+    }
+  },
+  init: function() {
+    this.insertHtml(this.html)
+    this.insertCSS(this.css)
+    this.moveBall()
+    this.bom()
+    setInterval(that.setTargetPosition, 1000)
+  }
+}
+App.prototype.constructor = 'App'
+var a = new App('app1')
+a.init()
