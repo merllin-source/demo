@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+   <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+
 <html>
 
 <head>
@@ -12,8 +13,8 @@
   <div id="app">  
     <div id="container">
     <backboard  id="backboard"></backboard>  
-    <ball id="ball"></ball>
-    <target  id="target"></target>      
+      <ball id="ball" style="left:10px;top:10px"> </ball>
+    <target  id="target"></target>  
     </div>
   </div>
  <div id="ball1"></div>
@@ -40,6 +41,9 @@
      border-radius:50%;
      background:red;
      position:absolute;
+     text-align:center;
+      line-height:50px;
+      left:10px;
     }
     #target{
    width:50px;
@@ -47,46 +51,104 @@
      border-radius:50%;
      background:white;
      position:absolute;
+       text-align:center;
+      line-height:50px;
      left:50px;
     }
+    #quanju{
+       width:50px;
+     height:50px;
+     border-radius:50%;
+     background:red;
+     position:absolute;
+       text-align:center;
+      line-height:50px;
+      left:100px;
+    }
+  
+   
   </style>
   <script>
-    function G(id) {
-  return document.getElementById(id)
-}
+function getKey(e){return e.keyCode}
 var vm = new Vue({
   //// 
   el: "#app",
   data: {
     name: '678'
   },
+  created:function(){ 
+   this.addEvent()
+   setInterval(this.setTargetPosition, 3000)    
+  },
   methods: {
-    moveBall: function() {
-    G('ball').style.left='100px'
+    G:function(id){return document.getElementById(id)},
+    getLeft:function(id) {return vm.G(id).style.left},
+    getTop: function(id) {return vm.G(id).style.top},
+    gapH: function(){return Math.abs(parseInt(vm.getLeft('ball')) - parseInt(vm.getLeft('target')))},
+    gapV: function(id) {return Math.abs(parseInt(vm.getTop('ball')) - parseInt(vm.getTop('target')))},
+    setTargetPosition: function(){
+    vm.G('target').style.left = Math.random() * 250 + 'px';
+    vm.G('target').style.top = Math.random() * 450 + 'px'
+  },
+    bom: function() {
+    if (vm.gapH() < 50 && vm.gapV() < 50) {
+      vm.G('target').style.background = 'yellow';
+      vm.G('target').style.height = '60px';
+      vm.G('target').style.width = '60px';      
+      vm.G('target').innerText = '击中'
+    } else if(vm.gapH() > 50 || vm.gapV() > 50){
+      vm.G('target').style.background = 'white';
+      vm.G('target').style.height = '50px';
+      vm.G('target').style.width = '50px';
+      vm.G('target').innerText = '来追';
     }
+  },
+    moveBall:function(e) {      
+      if (getKey(e) == 37&& parseInt(vm.getLeft('ball')) > 0 ) {     
+        vm.G('ball').style.left = (parseInt(vm.G('ball').style.left) - 10) + 'px'; 
+      } else if (getKey(e) == 39 && parseInt(vm.getLeft('ball')) < 250) {vm.G("ball").style.left = parseInt(vm.G('ball').style.left) + 10 + 'px'
+      } else if (getKey(e) == 40 && parseInt(vm.getTop('ball')) < 450) {
+        vm.G("ball").style.top = parseInt(vm.G('ball').style.top) + 10 + 'px'
+      } else if (getKey(e) == 38 && parseInt(vm.getTop('ball')) > 0) {
+        vm.G("ball").style.top = parseInt(vm.G('ball').style.top) - 10 + 'px'
+      }; 
+      vm.gapH();
+      vm.gapV();
+      vm.bom() ;   
+    },    
+    addEvent:function(){document.addEventListener('keydown',this.Event1)},
+    Event1: function(e){this.moveBall(e)},
+    Event2: function(e){console.log(getKey(e))},
+    Event3: function(){console.log(this.Event)},
+    Event3: function(){console.log(this.Event)},
   },
   components: {
     backboard: {
       template: "<div></div>",
     },
     target: {
-      template: "<div></div>"
+      data:function(){
+        return {
+          content:'来追' 
+         
+        }
+      },
+      template: "<div>{{content}}</div>"
     },
     ball: {
       data: function() {
         return {
-          content: 0
+          content:'追'
         }
       },
       template: "<div>{{content}}</div>"
     },
 
   },
-
   /// 
 });
 
-  document.addEventListener("click",vm.moveBall)
+//
   </script>
 </body>
 
