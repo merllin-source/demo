@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+</head>
+
+<body>
+  <div id="app">  
+    <div id="container">
+    <backboard  id="backboard"></backboard>  
+    <ball id="ball"></ball>
+    <target  id="target"></target>      
+    </div>
+  </div>
+ <div id="ball1"></div>
+  <style>
+    #container{      
+     position:relative;
+     margin:0 auto;
+     width:300px;
+     height:500px; 
+     background:yellow;
+     border-radius:1% 
+    }
+    #backboard{      
+     position:absolute;
+     margin:0 auto;
+     width:300px;
+     height:500px; 
+     background:gray;
+     border-radius:1% 
+    }
+    #ball{
+     width:50px;
+     height:50px;
+     border-radius:50%;
+     background:red;
+     position:absolute;
+    }
+    #target{
+   width:50px;
+     height:50px;
+     border-radius:50%;
+     background:white;
+     position:absolute;
+     left:50px;
+    }
+  </style>
+  <script>
+    function G(id) {
+  return document.getElementById(id)
+}
+var vm = new Vue({
+  //// 
+  el: "#app",
+  data: {
+    name: '678'
+  },
+  methods: {
+    moveBall: function() {
+    G('ball').style.left='100px'
+    }
+  },
+  components: {
+    backboard: {
+      template: "<div></div>",
+    },
+    target: {
+      template: "<div></div>"
+    },
+    ball: {
+      data: function() {
+        return {
+          content: 0
+        }
+      },
+      template: "<div>{{content}}</div>"
+    },
+
+  },
+
+  /// 
+});
+
+  document.addEventListener("click",vm.moveBall)
+  </script>
+</body>
+
+</html>
