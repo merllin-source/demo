@@ -1,0 +1,40 @@
+function throttle(fn, wait) {
+  var pre = Date.now()
+  return function() {  
+    var context = this 
+    var now = Date.now()
+    if (now - pre >= wait) {
+      fn.call(this,1233)
+      console.log(fn)
+      pre = Date.now()
+    }
+
+  }
+
+}
+
+function print(a){
+  console.log(a)
+}
+
+window.addEventListener('mousemove',throttle(print,5000))
+
+
+function throttle1(fn,wait){
+  var timer=null
+  return function(){
+    var context=this
+    if(!timer){
+      timer=setTimeout(function(){fn.call(context,12345678);
+                                  console.log(fn)                                  
+                                  timer=null;},wait)
+    }    
+  }
+}
+
+function print1(b){
+  console.log(b)
+}
+
+window.addEventListener('mousemove',throttle1(print1,5000))
+
