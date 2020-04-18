@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div id='a'>asd</div>
+		<div id="c">ddd</div>
+		
+	 <script>
+		 var b=document.getElementById('a')	
+		 var d=document.getElementById('c')
+		 var n=new Event('look')
+		 function hello(e){
+			 document.write('5')
+			console.log(e)		 
+		 }
+		b.addEventListener('look',hello)			
+		b.dispatchEvent(n)			  
+		
+		var m=document.createEvent('Event')		  
+			m.initEvent('watch')	  
+			c.addEventListener('watch',hello)
+			c.dispatchEvent(m)
+	 </script>
+		
+	</body>
+</html>
