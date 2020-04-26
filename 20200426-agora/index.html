@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Basic Communication</title>
+<link rel="stylesheet" href="./assets/common.css" />
+</head>
+<script src="assets/AgoraRTCSDK-3.0.2.js"></script>
+<body>
+
+	 
+	 <div style="border:1px solid red;width:100px;height:100px;position:relative;left:50px;top:50px;" id="local_stream1" class="video-placeholder"></div> 
+	 <div style="border:1px solid red;width:100px;height:100px;position:relative;left:50px;top:50px;" id="a" class="video-placeholder"></div> 
+<script src="vendor/jquery.min.js"></script>
+<script src="vendor/materialize.min.js"></script>
+<script>
+	
+	// rtc object
+	var rtc = {
+	  client: null,
+	  joined: false,
+	  published: false,
+	  localStream: null,
+	  remoteStreams: [],
+	  params: {}
+	};
+	
+	// Options for joining a channel
+	var option = {
+	  appID: "aa4a3511f87e4841bf87a3efd6af8f28",
+	  channel: "1",
+	  uid: null,
+	  token: "006aa4a3511f87e4841bf87a3efd6af8f28IACGgQGMrpvSNkmgx+Xgad11M5TsrHSlwMMjMroYjK5n7bfv3IMAAAAAEAAqDvK4q+CiXgEAAQCw4KJe"
+	}
+	
+	rtc.client = AgoraRTC.createClient({mode: "rtc", codec: "h264"});
+	
+	rtc.client.init(option.appID, function () {
+	  console.log("init success");
+	  
+	  // Join a channel
+	  rtc.client.join(option.token ? option.token : null, option.channel, option.uid ? +option.uid : null, function (uid) {
+	      console.log("join channel: " + option.channel + " success, uid: " + uid);
+	      rtc.params.uid = uid;
+		  
+		  // Create a local stream
+		  rtc.localStream = AgoraRTC.createStream({
+		    streamID: rtc.params.uid,
+		    audio: true,
+		    video: true,
+		    screen: false,
+		  })
+		  
+		   console.log(rtc.params.uid)//
+		   
+		   // Initialize the local stream
+		   rtc.localStream.init(function () {
+		     console.log("init local stream success");
+		     // play stream with html element id "local_stream"
+		     rtc.localStream.play("local_stream1");
+			// Publish the local stream
+			rtc.client.publish(rtc.localStream, function (err) {
+			  console.log("publish failed");
+			  console.error(err);
+			})
+			
+			
+			
+		   }, function (err) {
+		     console.error("init local stream failed ", err);
+		   });
+		   
+		  
+	    }, function(err) {
+	      console.error("client join failed", err)
+	  })
+	  
+
+	 
+	  
+	  }, (err) => {
+	  console.error(err);
+	});
+	
+	
+
+rtc.client.on("stream-added", function (evt) {
+	 	    var remoteStream = evt.stream;
+	 	    var id = remoteStream.getId();
+	 		console.log(id)
+	 		
+	 	    if (id !== rtc.params.uid) {
+	 	      rtc.client.subscribe(remoteStream, function (err) {
+	 	        console.log("stream subscribe failed", err);
+	 	      })
+	 	    }
+	 	    console.log('加加加stream-added remote-uid: ', id);
+	 	  });
+	  
+rtc.client.on("stream-subscribed", function (evt) {
+  var remoteStream = evt.stream;
+  var id = remoteStream.getId();
+  // Add a view for the remote stream.
+  //addView(id);
+  // Play the remote stream.
+  
+  debugger
+
+  rtc.remoteStreams[1].play("a");
+    console.log(remoteStream)
+  console.log('stream-subscribed remote-uid: ', id);
+})
+	console.log(rtc.remoteStreams)
+	
+</script>
+</body>
+</html>
