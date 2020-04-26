@@ -1,0 +1,41 @@
+*{
+	margin:0px;
+	padding:0px;
+}
+.Container{
+	border:1px solide red;
+	width:200px;
+	Height:100vh;
+	position:relative;
+	background:red;
+	right:0px;
+}
+.localVideoContainer{
+	position:absolute;
+	width:20vw;
+	height:100vh;
+	background:red;
+	right:0px;	
+}
+.remoteVideoContainer{
+	position:absolute;
+	width:80vw;
+	height:100vh;
+	background:grey;
+	left:0px;	
+}
+
+.localVideo {
+	border: 1px solid red;
+	width: 20vw;
+	height: 200px;
+	position: absolute;	
+	
+
+}
+
+.remoteVideo {
+	border: 1px solid red;
+	float: left;
+	
+}
