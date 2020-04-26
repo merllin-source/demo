@@ -31,12 +31,29 @@
 	width: 20vw;
 	height: 280px;
 	position: absolute;	
-	
-
 }
+.remoteVideoWrapper{
+	border: 1px solid red;	
+    float:left;
+    width:100px;
+	height:120px;
+	positon:relative;
+}
+
+
 
 .remoteVideo {
 	border: 1px solid red;
-	float: left;
+	width:100px;
+	height:100px;
+	postion:absolute;
+	top:0px;
 	
+}
+.remoteVideoBottom{
+	border:1px solid red;
+	width:100px;
+	height:20px;
+	bottom:0px;
+	line-height:20px;
 }
