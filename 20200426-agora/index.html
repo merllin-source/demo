@@ -87,23 +87,24 @@
 						console.log("stream subscribe failed", err);
 					})
 				}
-				console.log('stream-added remote-uid: ', id);			
+				console.log('stream-added remote-uid: ', id);	
+				rtc.client.on("stream-subscribed", function (evt) {
+				  var remoteStream = evt.stream;
+				  var id = remoteStream.getId();
+							
+						//<div id=\'remote_video_\'+${id}>123</div>	
+				// var div1=document.createElement('div')
+				//div1.innerText="sss";
+				//document.body.appendChild(div1)
+				  // Add a view for the remote stream.
+				  //addView(id);
+				  // Play the remote stream.
+				  remoteStream.play("local_stream1");
+				  console.log('stream-subscribed remote-uid: ', id);
+				})
 			});
 			
-			rtc.client.on("stream-subscribed", function (evt) {
-			  var remoteStream = evt.stream;
-			  var id = remoteStream.getId();
-						
-					//<div id=\'remote_video_\'+${id}>123</div>	
-		    // var div1=document.createElement('div')
-		    //div1.innerText="sss";
-		    //document.body.appendChild(div1)
-			  // Add a view for the remote stream.
-			  addView(id);
-			  // Play the remote stream.
-			  remoteStream.play("local_stream1");
-			  console.log('stream-subscribed remote-uid: ', id);
-			})
+			
 			
 			
 			
