@@ -11,8 +11,7 @@
 	<body>
 		<div style="border:1px solid red;width:100px;height:100px;position:relative;left:50px;top:50px;" id="local_stream"
 		></div>
-		<div style="border:1px solid red;width:100px;height:100px;position:relative;left:50px;top:50px;" id="local_stream1"
-		></div>
+		
 		<script src="vendor/jquery.min.js"></script>
 		<script src="vendor/materialize.min.js"></script>
 		<script>
@@ -93,13 +92,13 @@
 				  var id = remoteStream.getId();
 							
 						//<div id=\'remote_video_\'+${id}>123</div>	
-				// var div1=document.createElement('div')
-				//div1.innerText="sss";
-				//document.body.appendChild(div1)
+				   var div1=document.createElement('div')
+				   div1.innerHTML='<div style=\'width:100px;height:100px;\' id=remote_video_'+id+'></div>';
+				   document.body.appendChild(div1)
 				  // Add a view for the remote stream.
 				  //addView(id);
 				  // Play the remote stream.
-				  remoteStream.play("local_stream1");
+				  remoteStream.play("remote_video_"+id);
 				  console.log('stream-subscribed remote-uid: ', id);
 				})
 			});
