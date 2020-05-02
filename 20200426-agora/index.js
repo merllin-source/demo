@@ -15,9 +15,9 @@ var rtc = {
 // Options for joining a channel
 var option = {
 	appID: "161fc4cdb4c94701970f3793d906c8ea",
-	channel: "2",
+	channel: "1",
 	uid: null,
-	token: "006161fc4cdb4c94701970f3793d906c8eaIACDWwY9Vuie7LmaZM+POFnu/JnmzjsRLrZFW1Lyizh9Sg2+1RoAAAAAEADA5jE9wuamXgEAAQDL5qZe"
+	token: "006161fc4cdb4c94701970f3793d906c8eaIACJkQlQo0A5bSlriPLqEpHwSe5dTl4xWkA/hUPKQlposrfv3IMAAAAAEAC6jTl7iimuXgEAAQCRKa5e"
 }
 
 rtc.client = AgoraRTC.createClient({

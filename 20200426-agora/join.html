@@ -5,17 +5,20 @@
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<title>视频会议系统</title>
-
 		<link rel="stylesheet" href="./index.css" />
 	</head>
 	<script src="vendor/jquery.min.js"></script>
 	<script src="assets/AgoraRTCSDK-3.0.2.js"></script>
-	<script src="vendor/materialize.min.js"></script>
+	
 	<body>
-		<form name="input" action="join.php" method="post">
-		Username: <input type="text" name="id"><br>
-		Password: <input type="text" name="password"><br>
-		<input type="submit" value="进入会议系统">
-		</form>
+		<!--<script src="vendor/materialize.min.js"></script>-->
+		<div id="container">
+			<div class="localVideoContainer">
+				<div class="localVideo" id="local_stream"></div>
+			</div>
+			<div id="remoteVideoContainer" class="remoteVideoContainer">				
+			</div>
+		</div>
+		<script src="index.js"></script>
 	</body>
 </html>
