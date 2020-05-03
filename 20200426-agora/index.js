@@ -23,7 +23,7 @@ var option = {
 }
 rtc.client = AgoraRTC.createClient({
 	mode: "rtc",
-	codec: "h264"
+	codec: "vp8"
 });
 
 rtc.client.init(option.appID, function() {
@@ -43,7 +43,7 @@ rtc.client.init(option.appID, function() {
 			mirror: true,
 		})
 
-		rtc.localStream.setVideoProfile('1440p_1')
+		rtc.localStream.setVideoProfile('1080p_2')
 
 		// Initialize the local stream
 		rtc.localStream.init(function() {
