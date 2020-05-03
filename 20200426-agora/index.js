@@ -19,7 +19,7 @@ var option = {
 	appID: "161fc4cdb4c94701970f3793d906c8ea",
 	channel: "1",
 	uid: null,
-	token: "006161fc4cdb4c94701970f3793d906c8eaIACJkQlQo0A5bSlriPLqEpHwSe5dTl4xWkA/hUPKQlposrfv3IMAAAAAEAC6jTl7iimuXgEAAQCRKa5e"
+	token: "006161fc4cdb4c94701970f3793d906c8eaIAByZBuuiqUPJVz7zGsWar+AlxdPzBITzJbb4G9mgLfQr7fv3IMAAAAAEAC6jTl79XavXgEAAQD7dq9e"
 }
 rtc.client = AgoraRTC.createClient({
 	mode: "rtc",
