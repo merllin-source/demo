@@ -5,23 +5,36 @@
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<title>视频会议系统</title>
-		
+
 	</head>
 	<script src="vendor/jquery.min.js"></script>
-	<script src="assets/AgoraRTCSDK-3.0.2.js"></script>	
+	<script src="assets/AgoraRTCSDK-3.0.2.js"></script>
 	<script src="screen.js"></script>
 	<link rel="stylesheet/less" href="broadcast.less">
 	<script src="less.js"></script>
 	<body>
 
 		<!--<script src="vendor/materialize.min.js"></script>-->
-		<div id="container">
-			<div class="localVideoContainer">
-				<div class="localVideo" id="local_stream"></div>
-			</div>
-			<div id="remoteVideoContainer" class="remoteVideoContainer">				
-			</div>
+
+		<div class="localVideoContainer">
+			<div class="localVideo" id="local_stream"></div>
 		</div>
+
+		<div class='rotateCamera' id='rotateCamera'>调摄像头</div>
+		
 		<script src="index.js"></script>
+		<script>
+			document.getElementById('rotateCamera').onclick = function() {
+		     rtc.localStream.facingMode='environment'
+			 console.log(rtc.localStream.facingMode)
+		     rtc.localStream = AgoraRTC.createStream({
+		     	streamID: rtc.params.uid,
+		     	audio: true,
+		     	video: true,
+		     	screen: false,
+		     	facingMode:'environment',
+		     })
+			}
+		</script>
 	</body>
 </html>
