@@ -34,7 +34,25 @@
 		     	screen: false,
 		     	facingMode:'environment',
 		     })
+			 
+			 AgoraRTC.getDevices (function(devices) {
+			 var devCount = devices.length;			
+		
+			 for(i=0;i<devCount;i++){
+			 	document.write(devices[i].deviceId+'<br>')				
+			 }
+			 
+			 }, function(errStr){
+			      console.error("Failed to getDevice", errStr);
+			 });
+			 
+			 
+			 
 			}
+			
+			
+		
+			
 		</script>
 	</body>
 </html>
