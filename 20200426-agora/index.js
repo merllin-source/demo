@@ -39,7 +39,7 @@ rtc.client.init(option.appID, function() {
 			audio: true,
 			video: true,
 			screen: false,
-			facingMode:'environment',
+			facingMode: "environment"
 		})
 
 		rtc.localStream.setVideoProfile('1440p_1')
