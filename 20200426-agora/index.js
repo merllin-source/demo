@@ -41,11 +41,20 @@ rtc.client.init(option.appID, function() {
 			screen: false,
 		})
 
+		rtc.localStream.setVideoProfile('1440p_1')
+
 		// Initialize the local stream
 		rtc.localStream.init(function() {
 			console.log("init local stream success");
 			// play stream with html element id "local_stream"
+
+
 			rtc.localStream.play("local_stream");
+
+
+
+
+
 
 			// Publish the local stream
 			rtc.client.publish(rtc.localStream, function(err) {
@@ -76,12 +85,15 @@ rtc.client.on("stream-added", function(evt) {
 	}
 	console.log('stream-added remote-uid: ', id);
 	var div1 = document.createElement('div')
-	div1.innerHTML = '<div class=\'remoteVideoWrapper\' id=remoteVideoWrapper'+id+'><div class=\'remoteVideo\' id=remote_video_' + id + '></div><div class=\'remoteVideoBottom\'><div class=\'mute\' id=mute'+id+'>静音</div><div class=\'close\' id=close'+id+'>关闭</div></div></div>';
+	div1.innerHTML = '<div class=\'remoteVideoWrapper\' id=remoteVideoWrapper' + id +
+		'><div class=\'remoteVideo\' id=remote_video_' + id +
+		'></div><div class=\'remoteVideoBottom\'><div class=\'mute\' id=mute' + id +
+		'>静音</div><div class=\'close\' id=close' + id + '>关闭</div></div></div>';
 	document.getElementById('remoteVideoContainer').appendChild(div1)
-	
 
-	
-	
+
+
+
 	rtc.client.on("stream-subscribed", function(evt) {
 		var remoteStream = evt.stream;
 		var id = remoteStream.getId();
@@ -97,29 +109,26 @@ rtc.client.on("stream-added", function(evt) {
 		//addView(id);
 		// Play the remote stream.
 		remoteStream.play("remote_video_" + id);
-		
-		document.getElementById('mute'+id).onclick=function(e){
-		    
+
+		document.getElementById('mute' + id).onclick = function(e) {
+
 			//document.getElementById('video'+id).setAttribute('controls','')
-			document.getElementById('video'+id).setAttribute('muted','')
-			document.getElementById('audio'+id).setAttribute('muted','')
-			
-			
+			document.getElementById('video' + id).setAttribute('muted', '')
+			document.getElementById('audio' + id).setAttribute('muted', '')
+
+
 		}
-		
+
 		console.log('stream-subscribed remote-uid: ', id);
 	})
 });
 
 rtc.client.on("peer-leave", function(evt) {
-    var uid = evt.uid;
-    var reason = evt.reason;
-	domId=`remoteVideoWrapper${uid}`;
+	var uid = evt.uid;
+	var reason = evt.reason;
+	domId = `remoteVideoWrapper${uid}`;
 	document.getElementById(domId).remove()
 	console.log(domId)
-    console.log("remote user left ", uid, "reason: ", reason);
-    //……
+	console.log("remote user left ", uid, "reason: ", reason);
+	//……
 });
-
-
-
