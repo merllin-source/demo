@@ -68,7 +68,21 @@
 			    remoteStream.play("remote_video_" + id);
 			    console.log('stream-subscribed remote-uid: ', id);
 			  })			  
-			});			
+			});		
+				
+				rtc.client.on("peer-leave", function(evt) {
+					
+					alert('直播已停止！！！')
+					
+					
+					var uid = evt.uid;
+					var reason = evt.reason;
+					domId = `remoteVideoWrapper${uid}`;
+					document.getElementById(domId).remove()
+					console.log(domId)
+					console.log("remote user left ", uid, "reason: ", reason);
+					//……
+				});
 		</script>
 	</body>
 </html>
