@@ -40,7 +40,7 @@ rtc.client.init(option.appID, function() {
 			video: true,
 			screen: false,
 			facingMode: 'environment',
-			cameraId:'e409c4c440f70d9f52b18969da346295835b9902e8996f3a20d43316c0bd7163',
+			cameraId:'4f830f3c0b7a600635e1916fba9f797dd31512342d73e6b25ee200d9a24fb93c',
 			mirror: true,
 		})
 
